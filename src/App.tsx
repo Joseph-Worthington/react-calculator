@@ -42,6 +42,20 @@ function App() {
     }
   }
 
+  const chackOperator = (value: string) => {
+    if( input.endsWith('x') || input.endsWith('÷') || input.endsWith('+') ){
+      setInput(input.slice(0, -1) + value);
+    }else if(input.endsWith('-')){
+      if(input.charAt(input.length - 2) === 'x' || input.charAt(input.length - 2) === '÷' || input.charAt(input.length - 2) === '+'){
+        setInput(input.slice(0, -2) + value);
+      }else{
+        setInput(input.slice(0, -1) + value);
+      }
+    }else{
+      setTheInput(value);
+    }
+  }
+
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const key = e.currentTarget
@@ -71,15 +85,7 @@ function App() {
       case 'multiply':
       case 'divide': 
         setAllowDecimal(true);
-        if( input.endsWith('x') || input.endsWith('÷') || input.endsWith('+') ){
-          setInput(input.slice(0, -1) + value);
-        }else if(input.endsWith('-')){
-          //check if the character before the last character is an operator, if it is remove both and replace with new operator
-          setInput(input.slice(0, -2) + value);
-
-        }else{
-          setTheInput(value);
-        }
+        chackOperator(value);
         break;
       default:
           setTheInput(value);
