@@ -6,7 +6,7 @@ interface InputProps {
 }
 
 const Output: React.FC<InputProps> = ({output}) => {
-  return <div id="display">{output}</div>;
+  return <div id="output">{output}</div>;
 }
 
 export default Output;

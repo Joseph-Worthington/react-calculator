@@ -9,6 +9,7 @@ function App() {
 
   const [input, setInput] = React.useState('');
   const [output, setOutput] = React.useState('');
+  const [allowDecimal, setAllowDecimal] = React.useState(true);
 
   const calculate = (sum: string) => {
     let calcualtion = sum.replace(/x/g, '*').replace(/÷/g, '/');
@@ -16,6 +17,7 @@ function App() {
       const result = evaluate(calcualtion);
       setOutput(output + input + '=' + result.toString());
       setInput(result.toString());
+      setAllowDecimal(true);
     } catch (err) {
       console.log(err);
       setOutput('Error');
@@ -25,6 +27,7 @@ function App() {
   const clear = () => {
     setInput('0');
     setOutput('');
+    setAllowDecimal(true);
   }
 
   const setTheInput = (value: string) => {
@@ -54,22 +57,28 @@ function App() {
         calculate(output + input);
         break;
       case 'decimal':
-        if(input.includes('.')){
+        if(allowDecimal === false){
           return;
         }
         setInput(input + '.');
+        setAllowDecimal(false);
         break;
       case 'subtract':
           setTheInput(value);
+          setAllowDecimal(true);
         break;
       case 'add':
       case 'multiply':
-      case 'divide':
-        if(output.endsWith('x') || output.endsWith('÷') || output.endsWith('+') || output.endsWith('-')){
-          setOutput(output.slice(0, -1));
-        }
-        if(input.includes('-')){
-          setInput('');
+      case 'divide': 
+        setAllowDecimal(true);
+        if( input.endsWith('x') || input.endsWith('÷') || input.endsWith('+') ){
+          setInput(input.slice(0, -1) + value);
+        }else if(input.endsWith('-')){
+          //check if the character before the last character is an operator, if it is remove both and replace with new operator
+          setInput(input.slice(0, -2) + value);
+
+        }else{
+          setTheInput(value);
         }
         break;
       default:
