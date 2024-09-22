@@ -34,9 +34,15 @@ function App() {
     if(input === '0'){
       setInput(value);
     }else if(output.includes('=')){
-        setInput(value);
-        setOutput(input);
-        return;
+        if(value === '-' || value === 'x' || value === '÷' || value === '+'){
+          setInput(input + value);
+          setOutput('');
+          return;
+        }else{
+          setInput(value);
+          setOutput('');
+          return;
+        }
     }else{
       setInput(input + value );
     }
@@ -51,7 +57,7 @@ function App() {
       }else{
         setInput(input.slice(0, -1) + value);
       }
-    }else{
+    }else if(input.length > 0){
       setTheInput(value);
     }
   }
@@ -61,7 +67,6 @@ function App() {
     const key = e.currentTarget
     const action = key.dataset.action;
     const value = key.innerHTML;
-    console.log(action);
 
     switch(action){
       case 'clear':
