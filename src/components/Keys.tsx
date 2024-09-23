@@ -1,12 +1,12 @@
 import React from "react";
 
 interface KeysProps {
-  key: string;
+  id: string;
   value: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Key: React.FC<KeysProps> = ({ key, value, onClick }) => {
+const Key: React.FC<KeysProps> = ({ id, value, onClick }) => {
   const isWideButton = value === 'AC' || value === '0';
   const isEqualsButton = value === '=';
   const isOperatorButton = value === '÷' || value === 'x' || value === '-' || value === '+' || value === '±';
@@ -17,7 +17,7 @@ const Key: React.FC<KeysProps> = ({ key, value, onClick }) => {
   const buttonClass = `text-white ${buttonWidth} ${buttonBackground} ${buttonHieght} p-4 text-2xl font-bold border border-white`;
 
   return (
-    <button id={key} data-action={key} className={buttonClass } onClick={onClick}>
+    <button id={id} data-action={id} className={buttonClass } onClick={onClick}>
       {value}
     </button>
   );

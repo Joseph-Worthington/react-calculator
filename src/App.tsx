@@ -7,7 +7,7 @@ import { evaluate } from 'mathjs';
 
 function App() {
 
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState('0');
   const [output, setOutput] = React.useState('');
   const [allowDecimal, setAllowDecimal] = React.useState(true);
 
@@ -120,13 +120,15 @@ function App() {
 
   return (
     <div className="App">
-      <div id="calculator" className=''>
-        <Output output={output} />
-        <Input input={input} />
+      <div id="calculator" className='flex flex-col w-96 m-auto max-h-fit border border-gray-900 h-screen justify-center'>
+        <div className="text-white bg-gray-900 min-h-28 flex flex-col justify-end items-end p-5 text-3xl">
+          <Output output={output} />
+          <Input input={input} />
+        </div>
         <div className="keys grid grid-cols-4">
           {
-            Object.entries(keyObject).map(([key, value]) => (
-              <Keys key={key} value={value} onClick={handleClick} />
+            Object.entries(keyObject).map(([key, value], index: number) => (
+              <Keys key={index} id={key} value={value} onClick={handleClick} />
             ))
           }
         </div>
