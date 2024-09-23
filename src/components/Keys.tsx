@@ -1,39 +1,26 @@
 import React from "react";
 
 interface KeysProps {
+  key: string;
+  value: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const keyObject = {
-  clear: "AC",
-  divide: "÷",
-  multiply: "x",
-  seven: "7",
-  eight: "8",
-  nine: "9",
-  subtract: "-",
-  four: "4",
-  five: "5",
-  six: "6",
-  add: "+",
-  one: "1",
-  two: "2",
-  three: "3",
-  equals: "=",
-  zero: "0",
-  decimal: ".",
-};
+const Key: React.FC<KeysProps> = ({ key, value, onClick }) => {
+  const isWideButton = value === 'AC' || value === '0';
+  const isEqualsButton = value === '=';
+  const isOperatorButton = value === '÷' || value === 'x' || value === '-' || value === '+' || value === '±';
+  const isClearButton = value === 'AC';
+  const buttonWidth = isWideButton ? 'key col-span-2' : 'key';
+  const buttonBackground = isEqualsButton ? 'bg-green-500' : isOperatorButton ? 'bg-yellow-500' : isClearButton ? 'bg-red-500' : 'bg-gray-500';
+  const buttonHieght = isEqualsButton ? 'row-span-2' : 'row-span-1';
+  const buttonClass = `text-white ${buttonWidth} ${buttonBackground} ${buttonHieght} p-4 text-2xl font-bold border border-white`;
 
-const Keys: React.FC<KeysProps> = ({onClick}) => {
   return (
-    <div className="keys">
-      {
-        Object.entries(keyObject).map(([key, value]) => (
-          <button id={key} data-action={key} className="key" onClick={onClick}>{value}</button>
-        ))
-      }
-    </div>
+    <button id={key} data-action={key} className={buttonClass } onClick={onClick}>
+      {value}
+    </button>
   );
 };
 
-export default Keys;
+export default Key;

@@ -98,12 +98,38 @@ function App() {
     }
   }
 
+  const keyObject = {
+    clear: "AC",
+    divide: "÷",
+    multiply: "x",
+    seven: "7",
+    eight: "8",
+    nine: "9",
+    subtract: "-",
+    four: "4",
+    five: "5",
+    six: "6",
+    add: "+",
+    one: "1",
+    two: "2",
+    three: "3",
+    equals: "=",
+    zero: "0",
+    decimal: ".",
+  };
+
   return (
     <div className="App">
-      <div id="calculator">
+      <div id="calculator" className=''>
         <Output output={output} />
         <Input input={input} />
-        <Keys onClick={handleClick} />
+        <div className="keys grid grid-cols-4">
+          {
+            Object.entries(keyObject).map(([key, value]) => (
+              <Keys key={key} value={value} onClick={handleClick} />
+            ))
+          }
+        </div>
       </div>
     </div>
   );
